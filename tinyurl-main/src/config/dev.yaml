@@ -1,0 +1,9 @@
+env: "local"
+host: "localhost"
+port: 4000
+database:
+  host: "192.168.1.15"
+  port: 5432
+  user: "dwarf"
+  password: "dwarf"
+  name: "tinyurl"

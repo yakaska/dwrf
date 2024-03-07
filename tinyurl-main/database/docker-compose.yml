@@ -1,0 +1,16 @@
+version: "3.9"
+
+networks:
+  loki:
+
+services:
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_DB: "tiny-url-service"
+      POSTGRES_USER: "mirea-user"
+      POSTGRES_PASSWORD: "adminpassword"
+    ports:
+      - "5433:5432"

@@ -1,0 +1,41 @@
+image: golang:latest
+
+variables:
+  SERVICE: tiny-url
+  DOCKER_REPO: angelduzt
+  PROJECT: dwarf
+
+stages:
+# - test
+ - build
+# - deploy
+
+#unit_tests:
+#  stage: test
+#  script:
+#    - go test -v ./...
+
+build_docker:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  stage: build
+#  dependencies:
+#    - build_go
+  script:
+    - ls -l
+    - docker -v
+    - cd src && docker build -t ${SERVICE} .
+#    - docker run --name tinyurl  tiny-url
+#    - docker ps
+    - docker inspect ${SERVICE}
+    - docker tag ${SERVICE}:latest ${DOCKER_REPO}/${SERVICE}:latest
+    - docker login -u "${DOCKER_HUB_USERNAME}" -p "${DOCKER_HUB_PASSWORD}"
+    - docker push ${DOCKER_REPO}/${SERVICE}:latest
+    - docker pull ${DOCKER_REPO}/${SERVICE}:latest
+
+#deploy_docker:
+#  image: docker:24.0.5
+#  services:
+#    - docker:24.0.5-dind
+#  stage: deploy
